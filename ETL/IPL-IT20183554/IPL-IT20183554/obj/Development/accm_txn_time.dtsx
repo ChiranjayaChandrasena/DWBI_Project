@@ -1,0 +1,2448 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/13/2022 6:55:50 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-BDJJMBT"
+  DTS:CreatorName="DESKTOP-BDJJMBT\dell"
+  DTS:DTSID="{C3A33840-9D16-4608-B3F5-4D860F65A095}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="accm_txn_time"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{3268E76D-A3DD-4B4D-B6D5-00A0614A0350}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AccmTxnCompleteTime Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{848F6AEA-12AF-4A37-B54B-DB5D1DE38B07}"
+      DTS:ObjectName="AccmTxnCompleteTime Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\DWBI\Assignment\IPL till 2017\Final\New folder\New folder\AccmTxnCompleteTime.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="fact_table_natural_key (txn_id)"
+              DTS:DTSID="{2C30020C-A748-4A4F-A979-EEACAD6B2CB0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="accm_txn_complete_time"
+              DTS:DTSID="{070D83F3-7616-47FF-BF1B-023D60B58093}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0A57EE90-CC4E-4C94-9887-5A0CC24B4564}"
+      DTS:ObjectName="DESKTOP-BDJJMBT.IPL_DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-BDJJMBT;Initial Catalog=IPL_DW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D0AB8C06-B32E-48A4-A645-FED5760D5344}"
+      DTS:ObjectName="DESKTOP-BDJJMBT.IPL_Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-BDJJMBT;Initial Catalog=IPL_Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Extract AccmTxnCompleteTime Data to DW"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4D41E754-F6D8-40C4-AB5F-B9208B29B2BF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract AccmTxnCompleteTime Data to DW"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input].Columns[accm_txn_create_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_create_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_create_time]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_complete_time]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("hh",#{Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_create_time]},#{Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_complete_time]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("hh",accm_txn_create_time,accm_txn_complete_time)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input].Columns[BallID]"
+                      cachedDataType="i4"
+                      cachedName="BallID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BallID]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input].Columns[accm_txn_create_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_create_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[accm_txn_create_time]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Right Input].Columns[fact_table_natural_key (txn_id)]"
+                      cachedDataType="i4"
+                      cachedName="fact_table_natural_key (txn_id)"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[fact_table_natural_key (txn_id)]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Right Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[accm_txn_complete_time]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[BallID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[BallID]"
+                      name="BallID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input].Columns[BallID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input].Columns[accm_txn_create_time]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Right Input].Columns[accm_txn_complete_time]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec dbo.UpdateFactBallByBall ?, ?, ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@accm_txn_complete_time]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[accm_txn_complete_time]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].Columns[txn_process_time_hours]"
+                      cachedDataType="i4"
+                      cachedName="txn_process_time_hours"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@txn_process_time_hours]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Output].Columns[txn_process_time_hours]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].Columns[BallID]"
+                      cachedDataType="i4"
+                      cachedName="BallID"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@BallID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output].Columns[BallID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@BallID]"
+                      dataType="i4"
+                      name="@BallID">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="@accm_txn_complete_time">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@txn_process_time_hours]"
+                      dataType="i4"
+                      name="@txn_process_time_hours">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactBallByBall]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BallID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallID]"
+                      name="BallID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallDataID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BallDataID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallDataID]"
+                      name="BallDataID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBattingID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TeamBattingID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBattingID]"
+                      name="TeamBattingID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBowlingID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TeamBowlingID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBowlingID]"
+                      name="TeamBowlingID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[StrikerID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StrikerID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[StrikerID]"
+                      name="StrikerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[NonStrikerID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NonStrikerID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[NonStrikerID]"
+                      name="NonStrikerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RunsScored]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RunsScored]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RunsScored]"
+                      name="RunsScored"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraTypeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExtraTypeID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraTypeID]"
+                      name="ExtraTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraRuns]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExtraRuns]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraRuns]"
+                      name="ExtraRuns"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutTypeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OutTypeID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutTypeID]"
+                      name="OutTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutPlayerID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OutPlayerID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutPlayerID]"
+                      name="OutPlayerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsBowlerWicket]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsBowlerWicket]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsBowlerWicket]"
+                      name="IsBowlerWicket"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BowlerID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BowlerID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BowlerID]"
+                      name="BowlerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[FielderID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FielderID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[FielderID]"
+                      name="FielderID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[MatchDate]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MatchDate]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[MatchDate]"
+                      name="MatchDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[VenueID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VenueID]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[VenueID]"
+                      name="VenueID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                      name="InsertDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_create_time]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[txn_process_time_hours]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BallID]"
+                      dataType="i4"
+                      name="BallID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BallDataID]"
+                      dataType="i4"
+                      name="BallDataID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TeamBattingID]"
+                      dataType="i4"
+                      name="TeamBattingID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TeamBowlingID]"
+                      dataType="i4"
+                      name="TeamBowlingID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StrikerID]"
+                      dataType="i4"
+                      name="StrikerID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NonStrikerID]"
+                      dataType="i4"
+                      name="NonStrikerID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RunsScored]"
+                      dataType="i4"
+                      name="RunsScored" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExtraTypeID]"
+                      dataType="i4"
+                      name="ExtraTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExtraRuns]"
+                      dataType="i4"
+                      name="ExtraRuns" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OutTypeID]"
+                      dataType="i4"
+                      name="OutTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OutPlayerID]"
+                      dataType="i4"
+                      name="OutPlayerID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsBowlerWicket]"
+                      dataType="i4"
+                      name="IsBowlerWicket" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[BowlerID]"
+                      dataType="i4"
+                      name="BowlerID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FielderID]"
+                      dataType="i4"
+                      name="FielderID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MatchDate]"
+                      dataType="i4"
+                      name="MatchDate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VenueID]"
+                      dataType="i4"
+                      name="VenueID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      name="InsertDate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_create_time" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[txn_process_time_hours]"
+                      dataType="i4"
+                      name="txn_process_time_hours" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BallID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BallID]"
+                      name="BallID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BallDataID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BallDataID]"
+                      name="BallDataID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TeamBattingID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TeamBattingID]"
+                      name="TeamBattingID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TeamBowlingID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TeamBowlingID]"
+                      name="TeamBowlingID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StrikerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StrikerID]"
+                      name="StrikerID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NonStrikerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NonStrikerID]"
+                      name="NonStrikerID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RunsScored]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RunsScored]"
+                      name="RunsScored" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExtraTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExtraTypeID]"
+                      name="ExtraTypeID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExtraRuns]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExtraRuns]"
+                      name="ExtraRuns" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OutTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OutTypeID]"
+                      name="OutTypeID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OutPlayerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OutPlayerID]"
+                      name="OutPlayerID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsBowlerWicket]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsBowlerWicket]"
+                      name="IsBowlerWicket" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BowlerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[BowlerID]"
+                      name="BowlerID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FielderID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FielderID]"
+                      name="FielderID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MatchDate]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MatchDate]"
+                      name="MatchDate" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VenueID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VenueID]"
+                      name="VenueID" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                      name="InsertDate" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      name="ModifiedDate" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source 1"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[StgAccmTxnCompleteTime]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[fact_table_natural_key (txn_id)]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[fact_table_natural_key (txn_id)]"
+                      name="fact_table_natural_key (txn_id)"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      dataType="i4"
+                      name="fact_table_natural_key (txn_id)" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[fact_table_natural_key (txn_id)]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[fact_table_natural_key (txn_id)]"
+                      name="fact_table_natural_key (txn_id)" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Inputs[Sort Input].Columns[fact_table_natural_key (txn_id)]"
+                      cachedDataType="i4"
+                      cachedName="fact_table_natural_key (txn_id)"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[fact_table_natural_key (txn_id)]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Inputs[Sort Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[fact_table_natural_key (txn_id)]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[fact_table_natural_key (txn_id)]"
+                      name="fact_table_natural_key (txn_id)"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[fact_table_natural_key (txn_id)]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[BallID]"
+                      cachedDataType="i4"
+                      cachedName="BallID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[BallDataID]"
+                      cachedDataType="i4"
+                      cachedName="BallDataID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallDataID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[TeamBattingID]"
+                      cachedDataType="i4"
+                      cachedName="TeamBattingID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBattingID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[TeamBowlingID]"
+                      cachedDataType="i4"
+                      cachedName="TeamBowlingID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBowlingID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[StrikerID]"
+                      cachedDataType="i4"
+                      cachedName="StrikerID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[StrikerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[NonStrikerID]"
+                      cachedDataType="i4"
+                      cachedName="NonStrikerID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[NonStrikerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[RunsScored]"
+                      cachedDataType="i4"
+                      cachedName="RunsScored"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RunsScored]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[ExtraTypeID]"
+                      cachedDataType="i4"
+                      cachedName="ExtraTypeID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraTypeID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[ExtraRuns]"
+                      cachedDataType="i4"
+                      cachedName="ExtraRuns"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraRuns]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[OutTypeID]"
+                      cachedDataType="i4"
+                      cachedName="OutTypeID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutTypeID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[OutPlayerID]"
+                      cachedDataType="i4"
+                      cachedName="OutPlayerID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutPlayerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[IsBowlerWicket]"
+                      cachedDataType="i4"
+                      cachedName="IsBowlerWicket"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsBowlerWicket]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[BowlerID]"
+                      cachedDataType="i4"
+                      cachedName="BowlerID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BowlerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[FielderID]"
+                      cachedDataType="i4"
+                      cachedName="FielderID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[FielderID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[MatchDate]"
+                      cachedDataType="i4"
+                      cachedName="MatchDate"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[MatchDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[VenueID]"
+                      cachedDataType="i4"
+                      cachedName="VenueID"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[VenueID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[InsertDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InsertDate"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[ModifiedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[accm_txn_create_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_create_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input].Columns[txn_process_time_hours]"
+                      cachedDataType="i4"
+                      cachedName="txn_process_time_hours"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BallID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BallID]"
+                      name="BallID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BallDataID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BallDataID]"
+                      name="BallDataID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BallDataID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[TeamBattingID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[TeamBattingID]"
+                      name="TeamBattingID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBattingID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[TeamBowlingID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[TeamBowlingID]"
+                      name="TeamBowlingID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[TeamBowlingID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[StrikerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[StrikerID]"
+                      name="StrikerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[StrikerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[NonStrikerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[NonStrikerID]"
+                      name="NonStrikerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[NonStrikerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[RunsScored]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[RunsScored]"
+                      name="RunsScored">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RunsScored]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ExtraTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ExtraTypeID]"
+                      name="ExtraTypeID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraTypeID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ExtraRuns]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ExtraRuns]"
+                      name="ExtraRuns">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExtraRuns]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[OutTypeID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[OutTypeID]"
+                      name="OutTypeID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutTypeID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[OutPlayerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[OutPlayerID]"
+                      name="OutPlayerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[OutPlayerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[IsBowlerWicket]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[IsBowlerWicket]"
+                      name="IsBowlerWicket">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsBowlerWicket]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BowlerID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[BowlerID]"
+                      name="BowlerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[BowlerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[FielderID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[FielderID]"
+                      name="FielderID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[FielderID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[MatchDate]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[MatchDate]"
+                      name="MatchDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[MatchDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[VenueID]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[VenueID]"
+                      name="VenueID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[VenueID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[InsertDate]"
+                      name="InsertDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[ModifiedDate]"
+                      name="ModifiedDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Derived Column Output]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Derived Column Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Merge Join Output]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[OLE DB Source Output]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[OLE DB Source Output1]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Sort Output]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1.Outputs[Sort Output]" />
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Sort Output1]"
+              endId="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to DW\Sort.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Extract AccmTxnCompleteTime Data to Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{C9DE8166-A30D-49AB-AFD0-69F6B1179F10}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract AccmTxnCompleteTime Data to Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AccmTxnCompleteTime Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[AccmTxnCompleteTime Connection Manager]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[fact_table_natural_key (txn_id)]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[fact_table_natural_key (txn_id)]"
+                      name="fact_table_natural_key (txn_id)"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[accm_txn_complete_time]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[accm_txn_complete_time]"
+                      length="50"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      dataType="numeric"
+                      name="fact_table_natural_key (txn_id)"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[accm_txn_complete_time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="accm_txn_complete_time" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[StgAccmTxnCompleteTime]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_Staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BDJJMBT.IPL_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fact_table_natural_key (txn_id)]"
+                      cachedDataType="numeric"
+                      cachedName="fact_table_natural_key (txn_id)"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[fact_table_natural_key (txn_id)]" />
+                    <inputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[accm_txn_complete_time]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="accm_txn_complete_time"
+                      externalMetadataColumnId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[accm_txn_complete_time]"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output].Columns[accm_txn_complete_time]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fact_table_natural_key (txn_id)]"
+                      dataType="i4"
+                      name="fact_table_natural_key (txn_id)" />
+                    <externalMetadataColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Extract AccmTxnCompleteTime Data to Staging.Paths[Flat File Source Output]"
+              endId="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4B3C2474-1B5D-4266-9FE7-EFF71BEF204E}"
+      DTS:From="Package\Extract AccmTxnCompleteTime Data to Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Extract AccmTxnCompleteTime Data to DW" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="283.2,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW"
+          TopLeft="311.428576732168,262.294121325635" />
+        <NodeLayout
+          Size="301.6,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to Staging"
+          TopLeft="161.428574177684,82.5882364523865" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="312.228574177684,124.188236452386">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="140.800002554484,138.105884873248"
+              Start="0,0"
+              End="140.800002554484,130.605884873248">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,65.0529424366242" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,65.0529424366242"
+                    Point2="0,69.0529424366242"
+                    Point3="4,69.0529424366242" />
+                  <mssgle:LineSegment
+                    End="136.800002554484,69.0529424366242" />
+                  <mssgle:CubicBezierSegment
+                    Point1="136.800002554484,69.0529424366242"
+                    Point2="140.800002554484,69.0529424366242"
+                    Point3="140.800002554484,73.0529424366242" />
+                  <mssgle:LineSegment
+                    End="140.800002554484,130.605884873248" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Extract AccmTxnCompleteTime Data to DW">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source"
+          TopLeft="289,63" />
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Command"
+          TopLeft="490,409.8" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\Merge Join"
+          TopLeft="481,273" />
+        <NodeLayout
+          Size="106.4,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\Sort 1"
+          TopLeft="316,160" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1"
+          TopLeft="685,60" />
+        <NodeLayout
+          Size="97.6,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\Sort"
+          TopLeft="738,161" />
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to DW\Derived Column"
+          TopLeft="490,349" />
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Sort Output1]"
+          TopLeft="786.8,202.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-220.733333333333,70.4"
+              Start="0,0"
+              End="-220.733333333333,62.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.7248780487805" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.7248780487805"
+                    Point2="0,41.7248780487805"
+                    Point3="-4,41.7248780487805" />
+                  <mssgle:LineSegment
+                    End="-216.733333333333,41.7248780487805" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-216.733333333333,41.7248780487805"
+                    Point2="-220.733333333333,41.7248780487805"
+                    Point3="-220.733333333333,45.7248780487805" />
+                  <mssgle:LineSegment
+                    End="-220.733333333333,62.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Sort Output]"
+          TopLeft="369.2,201.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="176.6,71.4"
+              Start="0,0"
+              End="176.6,63.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.7"
+                    Point2="0,35.7"
+                    Point3="4,35.7" />
+                  <mssgle:LineSegment
+                    End="172.6,35.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="172.6,35.7"
+                    Point2="176.6,35.7"
+                    Point3="176.6,39.7" />
+                  <mssgle:LineSegment
+                    End="176.6,63.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[OLE DB Source Output1]"
+          TopLeft="764.2,101.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.5999999999999,59.4"
+              Start="0,0"
+              End="22.5999999999999,51.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.7"
+                    Point2="0,29.7"
+                    Point3="4,29.7" />
+                  <mssgle:LineSegment
+                    End="18.5999999999999,29.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5999999999999,29.7"
+                    Point2="22.5999999999999,29.7"
+                    Point3="22.5999999999999,33.7" />
+                  <mssgle:LineSegment
+                    End="22.5999999999999,51.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[OLE DB Source Output]"
+          TopLeft="366.5,104.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55.3999999999999"
+              Start="0,0"
+              End="0,47.8999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.8999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Merge Join Output]"
+          TopLeft="545.8,314.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.6,34.4"
+              Start="0,0"
+              End="20.6,26.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.2"
+                    Point2="0,17.2"
+                    Point3="4,17.2" />
+                  <mssgle:LineSegment
+                    End="16.6,17.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.6,17.2"
+                    Point2="20.6,17.2"
+                    Point3="20.6,21.2" />
+                  <mssgle:LineSegment
+                    End="20.6,26.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to DW.Paths[Derived Column Output]"
+          TopLeft="490,369.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.8"
+              Start="0,0"
+              End="-7.5,60.8">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,56.8" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,56.8"
+                    Point2="-22.5,60.8"
+                    Point3="-18.5,60.8" />
+                  <mssgle:LineSegment
+                    End="-7.5,60.8" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract AccmTxnCompleteTime Data to DW\OLE DB Source 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Extract AccmTxnCompleteTime Data to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination"
+          TopLeft="480.714293900801,71.8823539492994" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Extract AccmTxnCompleteTime Data to Staging\Flat File Source"
+          TopLeft="138.571430931286,65.0000009116005" />
+        <EdgeLayout
+          Id="Package\Extract AccmTxnCompleteTime Data to Staging.Paths[Flat File Source Output]"
+          TopLeft="288.971430931286,89.2411774304499">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="191.742862969515,0"
+              Start="0,0"
+              End="184.242862969515,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="184.242862969515,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract AccmTxnCompleteTime Data to Staging\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,103 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>IPL-SSAS-IT20183554</Database>
+    <Server>localhost</Server>
+    <ConnectionString>Data Source=localhost;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>06JOTu7k1cmO7mmCby+vDPdl0+A=5/16/2022 5:00:22 PM5/16/2022 5:00:22 PM</TimeStamp>
+        <ID>
+          <String>DS_IPL_DW</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>nXjgk7Tj9Toaxsf6ung7wzdvAaA=5/16/2022 5:10:31 PM5/16/2022 5:01:39 PM</TimeStamp>
+        <ID>
+          <String>DSV_IPL_DW</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Trgifxpkc8S5gAQ1SOYrBg0vnfI=5/16/2022 5:18:10 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Player</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>xA6nR+SibfQdEa5c46vV6ucWCOI=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Venue</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>MVs1pLZyUJ0winrcUtq5j1HpuQg=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Team</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Bdxox1pQct0inGyJTKaGinPrtg4=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Out Type</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>TaoBru58SA4ffqDygUX2M8nfMk8=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Extra Type</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>NwOGl3lr3CxooFgvCUCCwshuVmI=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Date</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>H/LFqnDSpQ00cXHJGXt5lyOw0E0=5/16/2022 5:16:42 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Dim Ball Data</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>cn9YKk5DhXIKbtrttyx6i9OjpDI=5/16/2022 5:33:38 PM5/16/2022 5:10:30 PMq64qFDSHvali+IOvo/PbH5Tul+A=5/16/2022 5:10:31 PM5/16/2022 5:10:31 PM</TimeStamp>
+        <ID>
+          <String>Cube_IPL</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>c4UIuhd2cBhkWAtLQJZoirIAqEE=5/16/2022 4:55:01 PM5/16/2022 4:55:01 PM</TimeStamp>
+      <ID>
+        <String>IPL-SSAS-IT20183554</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2022-05-16T12:03:48.86Z</LastDeployed>
+</DeploymentSnapshot>
